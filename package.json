@@ -12,5 +12,8 @@
   "type": "commonjs",
   "devDependencies": {
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "fastify": "^5.10.0"
   }
 }
