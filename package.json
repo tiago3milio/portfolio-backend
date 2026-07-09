@@ -3,17 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "nodemon dist/server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "author": "Tiago Santos",
+  "license": "MIT",
   "devDependencies": {
+    "@types/node": "^26.1.1",
+    "tsx": "^4.23.0",
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "fastify": "^5.10.0"
+    "dotenv": "^17.4.2",
+    "fastify": "^5.10.0",
+    "nodemon": "^3.1.14"
   }
 }
