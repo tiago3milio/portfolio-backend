@@ -1,11 +1,16 @@
-import fastify from 'fastify';
-import {prisma} from '../lib/prisma';
-import 'dotenv/config';
+import fastify from "fastify";
+import { prisma } from "../lib/prisma";
+import { projectRoutes } from "./modules/projects/project.routes";
+import "dotenv/config";
 
 const app = fastify();
 
-app.get('/', async (request, reply) => {
-    reply.status(200).send({ message: 'O servidor está rodando!' });
+app.get("/", async (request, reply) => {
+  reply.status(200).send({ message: "O servidor está rodando!" });
+});
+
+app.register(projectRoutes, {
+  prefix: "/projects",
 });
 
 const port = Number(process.env.PORT) || 3000;
