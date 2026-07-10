@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import {prisma} from '../lib/prisma';
 import 'dotenv/config';
 
 const app = fastify();
