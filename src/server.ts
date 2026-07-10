@@ -4,7 +4,7 @@ import 'dotenv/config';
 const app = fastify();
 
 app.get('/', async (request, reply) => {
-  return { message: 'A API está rodando...' };
+    reply.status(200).send({ message: 'O servidor está rodando!' });
 });
 
 const port = Number(process.env.PORT) || 3000;
