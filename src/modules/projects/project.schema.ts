@@ -15,6 +15,23 @@ export const createProjectSchema = z.object({
   featured: z.boolean().default(false),
 });
 
+export const projectResponseSchema = z.object({
+  id: z.uuid(),
+
+  title: z.string(),
+  slug: z.string(),
+  description: z.string(),
+
+  gitHubUrl: z.url().nullable(),
+  demoUrl: z.url().nullable(),
+
+  thumbnail: z.string().nullable(),
+  featured: z.boolean(),
+
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
 export type CreateProjectDTO = z.infer<typeof createProjectSchema>;
 
 export const updateProjectSchema = createProjectSchema.partial();

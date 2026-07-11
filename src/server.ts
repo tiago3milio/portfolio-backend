@@ -1,9 +1,15 @@
 import fastify from "fastify";
+import fp from "./plugins/swagger";
+import { serializerCompiler, validatorCompiler} from './../node_modules/fastify-type-provider-zod/src/core';
 import { prisma } from "../lib/prisma";
 import { projectRoutes } from "./modules/projects/project.routes";
 import "dotenv/config";
 
 const app = fastify();
+
+app.setSerializerCompiler(serializerCompiler);
+app.setValidatorCompiler(validatorCompiler);
+await app.register(fp);
 
 app.get("/", async (request, reply) => {
   reply.status(200).send({ message: "O servidor está rodando!" });
