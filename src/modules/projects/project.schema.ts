@@ -11,6 +11,7 @@ export const createProjectSchema = z.object({
   demoUrl: z.url().optional(),
 
   thumbnail: z.string().optional(),
+  technologies: z.array(z.string()).default([]),
 
   featured: z.boolean().default(false),
 });
@@ -22,11 +23,15 @@ export const projectResponseSchema = z.object({
   slug: z.string(),
   description: z.string(),
 
+  content: z.string(),
+
   gitHubUrl: z.url().nullable(),
   demoUrl: z.url().nullable(),
 
   thumbnail: z.string().nullable(),
   featured: z.boolean(),
+
+  technologies: z.array(z.string()),
 
   createdAt: z.date(),
   updatedAt: z.date(),
