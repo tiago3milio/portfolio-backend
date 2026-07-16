@@ -6,7 +6,7 @@ import {
   updateProjectSchema,
 } from "./project.schema";
 
-export const projectRoutes = async (app: FastifyInstance) => {
+export const projectRoutes = (app: FastifyInstance) => {
   app.post(
     "/",
     {

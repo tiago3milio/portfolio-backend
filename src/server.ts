@@ -2,6 +2,7 @@ import fastify from "fastify";
 import fp from "./plugins/swagger";
 import { serializerCompiler, validatorCompiler} from './../node_modules/fastify-type-provider-zod/src/core';
 import { projectRoutes } from "./modules/projects/project.routes";
+import { userRoutes } from "./modules/users/user.routes";
 import "dotenv/config";
 
 const app = fastify();
@@ -17,6 +18,10 @@ app.get("/", async (request, reply) => {
 app.register(projectRoutes, {
   prefix: "/projects",
 });
+
+app.register(userRoutes, {
+  prefix: "/user"
+})
 
 const port = Number(process.env.PORT) || 3000;
 
