@@ -1,5 +1,7 @@
+import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 import fp from "./plugins/swagger";
+
 import { serializerCompiler, validatorCompiler} from './../node_modules/fastify-type-provider-zod/src/core';
 import { projectRoutes } from "./modules/projects/project.routes";
 import { userRoutes } from "./modules/users/user.routes";
@@ -14,6 +16,10 @@ await app.register(fp);
 app.get("/", async (request, reply) => {
   reply.status(200).send({ message: "O servidor está rodando!" });
 });
+
+app.register(fastifyJwt, {
+  secret: process.env.JWT_SECRET!
+})
 
 app.register(projectRoutes, {
   prefix: "/projects",
