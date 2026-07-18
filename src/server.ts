@@ -12,6 +12,7 @@ import { projectRoutes } from "./modules/projects/project.routes";
 import { userRoutes } from "./modules/users/user.routes";
 import "dotenv/config";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { contactRoutes } from "./modules/contact/contact.route";
 
 const app = fastify();
 
@@ -36,6 +37,10 @@ await app.register(projectRoutes, {
 await app.register(userRoutes, {
   prefix: "/users",
 });
+
+await app.register(contactRoutes, {
+  prefix: "/contact"
+})
 
 const port = Number(process.env.PORT) || 3000;
 
