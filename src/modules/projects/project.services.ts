@@ -1,3 +1,4 @@
+import { AppError } from "@/src/errors/app.error";
 import { projectRepository } from "./project.repository";
 import { CreateProjectDTO, UpdateProjectDTO } from "./project.schema";
 
@@ -5,7 +6,7 @@ export const projectService = {
   async createProject(data: CreateProjectDTO) {
     const project = await projectRepository.findUnique(data.slug);
     if (project) {
-      throw new Error("Project with this slug already exists");
+      throw new AppError("Já existe um projeto este nome!", 400);
     }
     return projectRepository.create(data);
   },
@@ -18,7 +19,7 @@ export const projectService = {
     const project = await projectRepository.findUnique(id);
 
     if (!project) {
-      throw new Error("Project not found");
+      throw new AppError("Projeto não encontrado", 404);
     }
     return project;
   },
@@ -26,7 +27,7 @@ export const projectService = {
   async updateProject(id: string, data: UpdateProjectDTO) {
     const project = await projectRepository.findUnique(id);
     if (!project) {
-      throw new Error("Project not found");
+      throw new AppError("Projeto não encontrado", 404);
     }
     return projectRepository.update(id, data);
   },
@@ -34,8 +35,8 @@ export const projectService = {
   async deleteProject(id: string) {
     const project = await projectRepository.findUnique(id);
     if (!project) {
-      throw new Error("Project not found");
+      throw new AppError("Projeto não encontrado", 404);
     }
     return projectRepository.delete(id);
-  }
+  },
 };

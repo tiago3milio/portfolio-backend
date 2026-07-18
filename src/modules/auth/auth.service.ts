@@ -1,3 +1,4 @@
+import { AppError } from "@/src/errors/app.error";
 import { comparePassword, hashPassword } from "../../plugins/bcrypt";
 import { userRepository } from "../users/user.repository";
 import { ForgotPasswordDTO, loginSchemaDTO } from "./auth.schema";
@@ -6,12 +7,12 @@ export const authService = {
   async login(data: loginSchemaDTO) {
     const user = await userRepository.findByEmail(data.email);
     if (!user) {
-      throw new Error("Credenciais inválidas!");
+      throw new AppError("Credencias inválidas", 401);
     }
 
     const passwordMatch = comparePassword(data.password, user.passwordHash);
     if (!passwordMatch) {
-      throw new Error("Credenciais inválidas!");
+      throw new AppError("Credencias inválidas", 401);
     }
     return user;
   },
@@ -25,6 +26,7 @@ export const authService = {
   },
 
   async resetPassword(userId: string, password: string) {
+    if (!password) throw new AppError("Requer nova password", 400);
     const passwordHash = hashPassword(password);
     await userRepository.updatePassword(userId, passwordHash);
   },

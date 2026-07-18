@@ -14,6 +14,7 @@ import "dotenv/config";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { contactRoutes } from "./modules/contact/contact.route";
 import rateLimit from "./plugins/rate-limit";
+import errorHandler from "./plugins/error.handler";
 
 const app = fastify();
 
@@ -21,6 +22,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 //Plugins
+await app.register(errorHandler);
 await app.register(jwtPlugin);
 await app.register(swaggerPlugin);
 await app.register(rateLimit);
@@ -43,8 +45,8 @@ await app.register(userRoutes, {
 });
 
 await app.register(contactRoutes, {
-  prefix: "/contact"
-})
+  prefix: "/contact",
+});
 
 const port = Number(process.env.PORT) || 3000;
 
