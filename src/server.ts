@@ -15,6 +15,7 @@ import { authRoutes } from "./modules/auth/auth.routes";
 import { contactRoutes } from "./modules/contact/contact.route";
 import rateLimit from "./plugins/rate-limit";
 import errorHandler from "./plugins/error.handler";
+import cors from "./plugins/cors";
 
 const app = fastify();
 
@@ -22,6 +23,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 //Plugins
+await app.register(cors);
 await app.register(errorHandler);
 await app.register(jwtPlugin);
 await app.register(swaggerPlugin);
