@@ -11,6 +11,15 @@ export default fp(async (app) => {
         description: "API para gerenciamento de projetos do portfólio",
         version: "1.0.0",
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
+      },
     },
     transform: jsonSchemaTransform,
   });

@@ -5,14 +5,21 @@ import {
   projectResponseSchema,
   updateProjectSchema,
 } from "./project.schema";
+import { authenticate } from "@/src/middlewares/authenticate";
 
 export const projectRoutes = (app: FastifyInstance) => {
   app.post(
     "/",
     {
+      onRequest: authenticate,
       schema: {
         tags: ["Projects"],
         summary: "Create a new project",
+        security: [
+    {
+      bearerAuth: [],
+    },
+  ],
         body: createProjectSchema,
         response: {
           201: projectResponseSchema,
@@ -53,9 +60,15 @@ export const projectRoutes = (app: FastifyInstance) => {
   app.patch(
     "/:id",
     {
+      onRequest: authenticate,
       schema: {
         tags: ["Projects"],
         summary: "Update a project",
+        security: [
+    {
+      bearerAuth: [],
+    },
+  ],
         body: updateProjectSchema,
       },
     },
@@ -65,9 +78,15 @@ export const projectRoutes = (app: FastifyInstance) => {
   app.delete(
     "/:id",
     {
+      onRequest: authenticate,
       schema: {
         tags: ["Projects"],
         summary: "Delete a project",
+        security: [
+    {
+      bearerAuth: [],
+    },
+  ],
       },
     },
     projectController.delete,

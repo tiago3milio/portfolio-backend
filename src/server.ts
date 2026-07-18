@@ -1,33 +1,41 @@
-import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
-import fp from "./plugins/swagger";
 
-import { serializerCompiler, validatorCompiler} from './../node_modules/fastify-type-provider-zod/src/core';
+import swaggerPlugin from "./plugins/swagger";
+import jwtPlugin from "./plugins/jwt";
+
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
+
 import { projectRoutes } from "./modules/projects/project.routes";
 import { userRoutes } from "./modules/users/user.routes";
 import "dotenv/config";
+import { authRoutes } from "./modules/auth/auth.routes";
 
 const app = fastify();
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
-await app.register(fp);
+
+await app.register(jwtPlugin);
+await app.register(swaggerPlugin);
 
 app.get("/", async (request, reply) => {
   reply.status(200).send({ message: "O servidor está rodando!" });
 });
 
-app.register(fastifyJwt, {
-  secret: process.env.JWT_SECRET!
-})
+await app.register(authRoutes, {
+  prefix: "/auth",
+});
 
-app.register(projectRoutes, {
+await app.register(projectRoutes, {
   prefix: "/projects",
 });
 
-app.register(userRoutes, {
-  prefix: "/user"
-})
+await app.register(userRoutes, {
+  prefix: "/users",
+});
 
 const port = Number(process.env.PORT) || 3000;
 

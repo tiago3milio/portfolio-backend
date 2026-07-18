@@ -10,26 +10,26 @@ export const userController = {
   },
 
   async showById(request: FastifyRequest, reply: FastifyReply) {
-    const { id } = request.params as { id: string };
+    const id = request.user.id;
     const user = await userService.getUserById(id);
     return reply.status(200).send(user);
   },
 
   async showByName(request: FastifyRequest, reply: FastifyReply) {
-    const { name } = request.params as { name: string; };
+    const { name } = request.params as { name: string };
     const user = await userService.getUserByName(name);
     return reply.status(200).send(user);
   },
 
   async update(request: FastifyRequest, reply: FastifyReply) {
-    const { id } = request.params as { id: string };
+    const id = request.user.id;
     const data = updateUserSchema.parse(request.body);
     await userService.updateUser(id, data);
     return reply.status(204).send();
   },
 
   async delete(request: FastifyRequest, reply: FastifyReply) {
-    const { id } = request.params as { id: string };
+    const id = request.user.id;
     await userService.deleteUser(id);
     return reply.status(204).send();
   },

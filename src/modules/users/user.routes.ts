@@ -5,10 +5,11 @@ import {
   updateUserSchema,
   userResponseSchema,
 } from "./user.schema";
+import { authenticate } from "@/src/middlewares/authenticate";
 
 export const userRoutes = (app: FastifyInstance) => {
   app.post(
-    "/new-user",
+    "/",
     {
       schema: {
         tags: ["Users"],
@@ -23,32 +24,33 @@ export const userRoutes = (app: FastifyInstance) => {
   app.get(
     "/me",
     {
+      onRequest: authenticate,
       schema: {
         tags: ["Users"],
-        summary: "Get an authenticated",
+        summary: "Get authenticated user",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         response: { 200: userResponseSchema },
       },
     },
     userController.showById,
   );
 
-  app.get(
-    "/:name",
-    {
-        schema:{
-            tags: ["Users"],
-            summary: "Get User by name",
-            response: {200: userResponseSchema}
-        }
-    }, userController.showByName
-  )
-
   app.patch(
-    "/:id",
+    "/me",
     {
+      onRequest: authenticate,
       schema: {
         tags: ["Users"],
         summary: "Update a user",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         body: updateUserSchema,
       },
     },
@@ -56,9 +58,18 @@ export const userRoutes = (app: FastifyInstance) => {
   );
 
   app.delete(
-    "/:id",
+    "/:id?",
     {
-      schema: { tags: ["Users"], summary: "Delete user" },
+      onRequest: authenticate,
+      schema: {
+        tags: ["Users"],
+        summary: "Delete user",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+      },
     },
     userController.delete,
   );
