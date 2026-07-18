@@ -1,8 +1,8 @@
-import { comparePassword } from "../../plugins/bcrypt";
+import { comparePassword, hashPassword } from "../../plugins/bcrypt";
 import { userRepository } from "../users/user.repository";
 import { ForgotPasswordDTO, loginSchemaDTO } from "./auth.schema";
 
-export const authService= {
+export const authService = {
   async login(data: loginSchemaDTO) {
     const user = await userRepository.findByEmail(data.email);
     if (!user) {
@@ -13,19 +13,19 @@ export const authService= {
     if (!passwordMatch) {
       throw new Error("Credenciais inválidas!");
     }
-
-    return user
+    return user;
   },
 
   async forgotPassword(data: ForgotPasswordDTO) {
     const user = await userRepository.findByEmail(data.email);
-
-    // Nunca revelar se o e-mail existe
     if (!user) {
       return null;
     }
-
     return user;
   },
 
+  async resetPassword(userId: string, password: string) {
+    const passwordHash = hashPassword(password);
+    await userRepository.updatePassword(userId, passwordHash);
+  },
 };

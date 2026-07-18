@@ -25,33 +25,32 @@ export async function authRoutes(app: FastifyInstance) {
   );
 
   app.post(
-  "/forgot-password",
-  {
-    schema: {
-      tags: ["Auth"],
-      summary: "Enviar link para recuperação da palavra-passe",
-      body: forgotPasswordSchema,
-      response: {
-        200: authMessageSchema,
+    "/forgot-password",
+    {
+      schema: {
+        tags: ["Auth"],
+        summary: "Enviar link para recuperação da palavra-passe",
+        body: forgotPasswordSchema,
+        response: {
+          200: authMessageSchema,
+        },
       },
     },
-  },
-  authController.forgotPassword,
-);
+    authController.forgotPassword,
+  );
 
-// app.patch(
-//   "/reset-password",
-//   {
-//     schema: {
-//       tags: ["Auth"],
-//       summary: "Redefinir palavra-passe",
-//       body: resetPasswordSchema,
-//       response: {
-//         200: authMessageSchema,
-//       },
-//     },
-//   },
-//   authController.resetPassword,
-// );
-
+  app.patch(
+    "/reset-password",
+    {
+      schema: {
+        tags: ["Auth"],
+        summary: "Redefinir palavra-passe",
+        body: resetPasswordSchema,
+        response: {
+          200: authMessageSchema,
+        },
+      },
+    },
+    authController.resetPassword,
+  );
 }
