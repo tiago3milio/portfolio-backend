@@ -13,15 +13,19 @@ import { userRoutes } from "./modules/users/user.routes";
 import "dotenv/config";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { contactRoutes } from "./modules/contact/contact.route";
+import rateLimit from "./plugins/rate-limit";
 
 const app = fastify();
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
+//Plugins
 await app.register(jwtPlugin);
 await app.register(swaggerPlugin);
+await app.register(rateLimit);
 
+//Rotas
 app.get("/", async (request, reply) => {
   reply.status(200).send({ message: "O servidor está rodando!" });
 });

@@ -11,6 +11,12 @@ export const userRoutes = (app: FastifyInstance) => {
   app.post(
     "/",
     {
+      config:{
+        rateLimit:{
+          max: 5,
+          timeWindow: "1 minute"
+        }
+      },
       schema: {
         tags: ["Users"],
         summary: "Create a new user",

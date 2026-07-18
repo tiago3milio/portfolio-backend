@@ -12,6 +12,9 @@ export async function authRoutes(app: FastifyInstance) {
   app.post(
     "/login",
     {
+      config: {
+        rateLimit: { max: 5, timeWindow: "5 minutes" },
+      },
       schema: {
         tags: ["Auth"],
         summary: "Autenticar administrador",
@@ -27,6 +30,12 @@ export async function authRoutes(app: FastifyInstance) {
   app.post(
     "/forgot-password",
     {
+      config: {
+        rateLimit: {
+          max: 3,
+          timeWindow: "10 minutes",
+        },
+      },
       schema: {
         tags: ["Auth"],
         summary: "Enviar link para recuperação da palavra-passe",
@@ -42,6 +51,12 @@ export async function authRoutes(app: FastifyInstance) {
   app.patch(
     "/reset-password",
     {
+       config: {
+        rateLimit: {
+          max: 5,
+          timeWindow: "10 minutes",
+        },
+      },
       schema: {
         tags: ["Auth"],
         summary: "Redefinir palavra-passe",

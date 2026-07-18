@@ -9,6 +9,12 @@ export async function contactRoutes(app: FastifyInstance) {
   app.post(
     "/",
     {
+       config: {
+        rateLimit: {
+          max: 5,
+          timeWindow: "1 hour",
+        },
+      },
       schema: {
         tags: ["Contact"],
         summary: "Enviar mensagem de contacto",
