@@ -31,5 +31,5 @@ export const projectController = {
     const { id } = request.params as { id: string };
     await projectService.deleteProject(id);
     return reply.status(204).send();
-  }
+  },
 };

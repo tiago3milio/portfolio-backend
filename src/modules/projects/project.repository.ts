@@ -16,6 +16,15 @@ export const projectRepository = {
     });
   },
 
+  async updateThumbnail(id: string, thumbnail: string) {
+    return prisma.project.update({
+      where: { id },
+      data: {
+        thumbnail,
+      },
+    });
+  },
+
   async update(id: string, data: UpdateProjectDTO) {
     return prisma.project.update({
       where: { id },
@@ -27,5 +36,5 @@ export const projectRepository = {
     return prisma.project.delete({
       where: { id },
     });
-  }
+  },
 };

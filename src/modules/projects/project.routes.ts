@@ -16,10 +16,10 @@ export const projectRoutes = (app: FastifyInstance) => {
         tags: ["Projects"],
         summary: "Create a new project",
         security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+          {
+            bearerAuth: [],
+          },
+        ],
         body: createProjectSchema,
         response: {
           201: projectResponseSchema,
@@ -65,10 +65,10 @@ export const projectRoutes = (app: FastifyInstance) => {
         tags: ["Projects"],
         summary: "Update a project",
         security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+          {
+            bearerAuth: [],
+          },
+        ],
         body: updateProjectSchema,
       },
     },
@@ -83,10 +83,10 @@ export const projectRoutes = (app: FastifyInstance) => {
         tags: ["Projects"],
         summary: "Delete a project",
         security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+          {
+            bearerAuth: [],
+          },
+        ],
       },
     },
     projectController.delete,
