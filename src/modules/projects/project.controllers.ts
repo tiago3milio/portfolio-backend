@@ -42,6 +42,14 @@ export const projectController = {
     return reply.send(project);
   },
 
+  async removeThumbnail(request: FastifyRequest, reply: FastifyReply) {
+    const { id } = request.params as { id: string };
+
+    const project = await projectService.removeThumbnail(id);
+
+    return reply.status(204).send();
+  },
+
   async delete(request: FastifyRequest, reply: FastifyReply) {
     const { id } = request.params as { id: string };
     await projectService.deleteProject(id);

@@ -3,6 +3,7 @@ import { projectRepository } from "./project.repository";
 import { CreateProjectDTO, UpdateProjectDTO } from "./project.schema";
 import { MultipartFile } from "@fastify/multipart";
 import { uploadService } from "../../services/upload.service";
+import { boolean, string } from "zod";
 
 export const projectService = {
   async createProject(data: CreateProjectDTO) {
@@ -37,7 +38,7 @@ export const projectService = {
   async updateThumbnail(id: string, file: MultipartFile) {
     const project = await projectRepository.findUnique(id);
 
-    if (!project) throw new AppError("Utilizador não encontrado!", 400);
+    if (!project) throw new AppError("Projeto não encontrado!", 400);
 
     if (project.thumbnailPublicId) {
       await uploadService.remove(project.thumbnailPublicId);
@@ -50,6 +51,22 @@ export const projectService = {
       image.url,
       image.publicId,
     );
+  },
+
+  async removeThumbnail(id: string) {
+    const project = await projectRepository.findUnique(id);
+
+    if (!project) {
+      throw new AppError("Utilizador não encontrado.", 404);
+    }
+
+    if (!project.thumbnailPublicId) {
+      return project;
+    }
+
+    await uploadService.remove(project.thumbnailPublicId);
+
+    return projectRepository.updateThumbnail(project.id, "", "");
   },
 
   async deleteProject(id: string) {

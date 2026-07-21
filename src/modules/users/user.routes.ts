@@ -83,6 +83,25 @@ export const userRoutes = (app: FastifyInstance) => {
   );
 
   app.delete(
+    "/delete/avatar",
+    {
+      onRequest: [authenticate],
+
+      schema: {
+        tags: ["Users"],
+        summary: "Remover avatar",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+      },
+    },
+
+    userController.removeAvatar,
+  );
+
+  app.delete(
     "/:id?",
     {
       onRequest: authenticate,

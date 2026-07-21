@@ -95,6 +95,25 @@ export const projectRoutes = (app: FastifyInstance) => {
   );
 
   app.delete(
+    "/delete/:id",
+    {
+      onRequest: [authenticate],
+
+      schema: {
+        tags: ["Upload"],
+        summary: "Remove thumbnail",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+      },
+    },
+
+    projectController.removeThumbnail,
+  );
+
+  app.delete(
     "/:id",
     {
       onRequest: authenticate,

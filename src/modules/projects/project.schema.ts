@@ -1,16 +1,16 @@
-import { z } from "zod";
+import { nullable, z } from "zod";
 
 export const createProjectSchema = z.object({
   title: z.string().min(3),
   slug: z.string().min(3),
   description: z.string().min(10),
 
-  content: z.string().optional(),
+  content: z.string().nullable(),
 
-  gitHubUrl: z.url().optional(),
-  demoUrl: z.url().optional(),
+  gitHubUrl: z.url().nullable(),
+  demoUrl: z.url().nullable(),
 
-  thumbnail: z.string().optional(),
+  thumbnail: z.string().nullable(),
   technologies: z.array(z.string()).default([]),
 
   featured: z.boolean().default(false),
@@ -23,7 +23,7 @@ export const projectResponseSchema = z.object({
   slug: z.string(),
   description: z.string(),
 
-  content: z.string(),
+  content: z.string().nullable(),
 
   gitHubUrl: z.url().nullable(),
   demoUrl: z.url().nullable(),

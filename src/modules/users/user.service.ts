@@ -56,6 +56,22 @@ export const userService = {
     return userRepository.updateAvatar(user.id, image.url, image.publicId);
   },
 
+  async removeAvatar(userId: string) {
+    const user = await userRepository.findById(userId);
+
+    if (!user) {
+      throw new AppError("Utilizador não encontrado.", 404);
+    }
+
+    if (!user.avatarPublicId) {
+      return user;
+    }
+
+    await uploadService.remove(user.avatarPublicId);
+
+    return userRepository.updateAvatar(user.id, "", "");
+  },
+
   async deleteUser(id: string) {
     const user = await userRepository.findById(id);
     if (!user) {

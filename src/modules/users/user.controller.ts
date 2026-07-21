@@ -30,21 +30,25 @@ export const userController = {
   },
 
   async updateAvatar(request: FastifyRequest, reply: FastifyReply) {
-  const file = await request.file();
+    const file = await request.file();
 
-  if (!file) {
-    throw new AppError("Nenhuma imagem enviada.");
-  }
+    if (!file) {
+      throw new AppError("Nenhuma imagem enviada.");
+    }
 
-  const id = request.user.id;
+    const id = request.user.id;
 
-  const user = await userService.updateAvatar(
-    id,
-    file,
-  );
+    const user = await userService.updateAvatar(id, file);
 
-  return reply.send(user);
-},
+    return reply.send(user);
+  },
+
+  async removeAvatar(request: FastifyRequest, reply: FastifyReply) {
+    const id = request.user.id;
+    await userService.removeAvatar(id);
+
+    return reply.status(204).send();
+  },
 
   async delete(request: FastifyRequest, reply: FastifyReply) {
     const id = request.user.id;
