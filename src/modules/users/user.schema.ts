@@ -6,7 +6,7 @@ export const createUserSchema = z.object({
   passwordHash: z.string().min(8),
   role: z.enum(["ADMIN"]).default("ADMIN"),
   isActive: z.boolean().default(false),
-  avatarUrl: z.url().nullable().optional(),
+  avatarUrl: z.string().nullable().optional(),
 });
 
 export const updateUserSchema = createUserSchema

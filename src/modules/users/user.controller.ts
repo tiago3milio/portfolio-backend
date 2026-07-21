@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { createUserSchema, updateUserSchema } from "./user.schema";
 import { userService } from "./user.service";
+import { AppError } from "@/src/errors/app.error";
 
 export const userController = {
   async create(request: FastifyRequest, reply: FastifyReply) {
@@ -27,6 +28,23 @@ export const userController = {
     await userService.updateUser(id, data);
     return reply.status(204).send();
   },
+
+  async updateAvatar(request: FastifyRequest, reply: FastifyReply) {
+  const file = await request.file();
+
+  if (!file) {
+    throw new AppError("Nenhuma imagem enviada.");
+  }
+
+  const id = request.user.id;
+
+  const user = await userService.updateAvatar(
+    id,
+    file,
+  );
+
+  return reply.send(user);
+},
 
   async delete(request: FastifyRequest, reply: FastifyReply) {
     const id = request.user.id;

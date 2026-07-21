@@ -41,16 +41,23 @@ export const userRepository = {
     });
   },
 
+  async updateAvatar(id: string, avatarUrl: string) {
+    return prisma.user.update({
+      where: { id },
+      data: { avatarUrl },
+    });
+  },
+
   async updatePassword(id: string, passwordHash: string) {
-  return prisma.user.update({
-    where: {
-      id,
-    },
-    data: {
-      passwordHash,
-    },
-  });
-},
+    return prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        passwordHash,
+      },
+    });
+  },
 
   async delete(id: string) {
     return prisma.user.delete({

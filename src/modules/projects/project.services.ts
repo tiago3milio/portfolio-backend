@@ -51,7 +51,7 @@ export const projectService = {
     }
 
     const image = await uploadService.upload(file);
-    return projectRepository.updateThumbnail(id, image.url);
+    return projectRepository.updateThumbnail(id, image.filename);
   },
 
   async deleteProject(id: string) {

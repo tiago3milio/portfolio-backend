@@ -11,11 +11,11 @@ export const userRoutes = (app: FastifyInstance) => {
   app.post(
     "/",
     {
-      config:{
-        rateLimit:{
+      config: {
+        rateLimit: {
           max: 5,
-          timeWindow: "1 minute"
-        }
+          timeWindow: "1 minute",
+        },
       },
       schema: {
         tags: ["Users"],
@@ -61,6 +61,25 @@ export const userRoutes = (app: FastifyInstance) => {
       },
     },
     userController.update,
+  );
+
+  app.patch(
+    "/avatar",
+    {
+      onRequest: [authenticate],
+
+      schema: {
+        tags: ["Users"],
+        summary: "Atualizar avatar",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+      },
+    },
+
+    userController.updateAvatar,
   );
 
   app.delete(

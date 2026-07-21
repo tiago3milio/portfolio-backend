@@ -30,7 +30,6 @@ export const uploadService = {
 
     return {
       filename,
-      url: `/uploads/${filename}`,
     };
   },
 };
