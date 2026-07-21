@@ -41,10 +41,10 @@ export const userRepository = {
     });
   },
 
-  async updateAvatar(id: string, avatarUrl: string) {
+  async updateAvatar(id: string, avatarUrl: string, avatarPublicId:string) {
     return prisma.user.update({
       where: { id },
-      data: { avatarUrl },
+      data: { avatarUrl, avatarPublicId },
     });
   },
 

@@ -75,6 +75,25 @@ export const projectRoutes = (app: FastifyInstance) => {
     projectController.update,
   );
 
+  app.patch(
+    "/upload/:id",
+    {
+      onRequest: [authenticate],
+
+      schema: {
+        tags: ["Upload"],
+        summary: "Upload de uma imagem",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+      },
+    },
+
+    projectController.updateThumbnail,
+  );
+
   app.delete(
     "/:id",
     {

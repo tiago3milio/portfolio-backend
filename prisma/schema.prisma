@@ -13,6 +13,7 @@ model User {
   email        String   @unique
   passwordHash String
   avatarUrl    String?
+  avatarPublicId String?
   role         Role     @default(ADMIN)
   isActive     Boolean  @default(false)
   createdAt    DateTime @default(now())
@@ -32,6 +33,7 @@ model Project {
   gitHubUrl     String?
   demoUrl       String?
   thumbnail     String?
+  thumbnailPublicId String?
   technologies String[]
   featured      Boolean  @default(false)
   createdAt     DateTime @default(now())

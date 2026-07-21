@@ -16,11 +16,16 @@ export const projectRepository = {
     });
   },
 
-  async updateThumbnail(id: string, thumbnail: string) {
+  async updateThumbnail(
+    id: string,
+    thumbnail: string,
+    thumbnailPublicId: string,
+  ) {
     return prisma.project.update({
       where: { id },
       data: {
         thumbnail,
+        thumbnailPublicId,
       },
     });
   },

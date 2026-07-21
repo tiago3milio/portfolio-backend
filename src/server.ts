@@ -18,7 +18,7 @@ import errorHandler from "./plugins/error.handler";
 import cors from "./plugins/cors";
 import multipartPlugin from "./plugins/multipart";
 import staticPlugin from "./plugins/static";
-import { uploadRoutes } from "./modules/upload/upload.routes";
+import cloudinary from "./plugins/cloudinary";
 
 const app = fastify({ logger: true });
 
@@ -33,10 +33,13 @@ await app.register(swaggerPlugin);
 await app.register(rateLimit);
 await app.register(multipartPlugin);
 await app.register(staticPlugin);
+await app.register(cloudinary);
 
 //Rotas
 app.get("/", async (request, reply) => {
-  reply.status(200).send({ message: "O servidor está rodando!" });
+  return reply.status(200).send({
+    message: "Servidor Rodando, visite a documentação por favor!",
+  });
 });
 
 await app.register(authRoutes, {
@@ -53,10 +56,6 @@ await app.register(userRoutes, {
 
 await app.register(contactRoutes, {
   prefix: "/contact",
-});
-
-await app.register(uploadRoutes, {
-  prefix: "/upload",
 });
 
 const port = Number(process.env.PORT) || 3000;

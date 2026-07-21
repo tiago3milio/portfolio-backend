@@ -2,8 +2,7 @@ import { userRepository } from "./user.repository";
 import { CreateUserDTO, UpdateUserDTO } from "./user.schema";
 import { hashPassword } from "../../plugins/bcrypt";
 import { AppError } from "@/src/errors/app.error";
-import { uploadService } from "../upload/upload.service";
-import { diskStorage } from "@/src/storage/storage";
+import { uploadService } from "../../services/upload.service";
 import { MultipartFile } from "@fastify/multipart";
 
 export const userService = {
@@ -49,13 +48,12 @@ export const userService = {
       throw new AppError("Utilizador não encontrado.", 404);
     }
 
-    if (user.avatarUrl) {
-      await diskStorage.delete(user.avatarUrl);
+    if (user.avatarPublicId) {
+      await uploadService.remove(user.avatarPublicId);
     }
 
-    const image = await uploadService.upload(file);
-
-    return userRepository.updateAvatar(user.id, image.filename);
+    const image = await uploadService.upload(file, "portfolio/users");
+    return userRepository.updateAvatar(user.id, image.url, image.publicId);
   },
 
   async deleteUser(id: string) {

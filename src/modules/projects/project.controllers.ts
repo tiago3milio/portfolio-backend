@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { projectService } from "./project.services";
 import { createProjectSchema, updateProjectSchema } from "./project.schema";
+import { AppError } from "@/src/errors/app.error";
 
 export const projectController = {
   async create(request: FastifyRequest, reply: FastifyReply) {
@@ -25,6 +26,20 @@ export const projectController = {
     const data = updateProjectSchema.parse(request.body);
     await projectService.updateProject(id, data);
     return reply.status(204).send();
+  },
+
+  async updateThumbnail(request: FastifyRequest, reply: FastifyReply) {
+    const { id } = request.params as { id: string };
+
+    const file = await request.file();
+
+    if (!file) {
+      throw new AppError("Nenhuma imagem enviada.");
+    }
+
+    const project = await projectService.updateThumbnail(id, file);
+
+    return reply.send(project);
   },
 
   async delete(request: FastifyRequest, reply: FastifyReply) {
