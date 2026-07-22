@@ -5,7 +5,7 @@ import {
   projectResponseSchema,
   updateProjectSchema,
 } from "./project.schema";
-import { authenticate } from "@/src/middlewares/authenticate";
+import { authenticate } from "../../middlewares/authenticate";
 
 export const projectRoutes = (app: FastifyInstance) => {
   app.post(

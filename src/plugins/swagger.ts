@@ -23,6 +23,7 @@ export default fp(async (app) => {
     },
     transform: jsonSchemaTransform,
   });
+  
   await app.register(swaggerUi, {
     routePrefix: "/docs",
   });

@@ -17,7 +17,6 @@ import rateLimit from "./plugins/rate-limit";
 import errorHandler from "./plugins/error.handler";
 import cors from "./plugins/cors";
 import multipartPlugin from "./plugins/multipart";
-import staticPlugin from "./plugins/static";
 import cloudinary from "./plugins/cloudinary";
 
 const app = fastify({ logger: true });
@@ -26,14 +25,13 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 //Plugins
-await app.register(cors);
-await app.register(errorHandler);
-await app.register(jwtPlugin);
-await app.register(swaggerPlugin);
-await app.register(rateLimit);
-await app.register(multipartPlugin);
-await app.register(staticPlugin);
-await app.register(cloudinary);
+app.register(cors);
+app.register(errorHandler);
+app.register(jwtPlugin);
+app.register(swaggerPlugin);
+app.register(rateLimit);
+app.register(multipartPlugin);
+app.register(cloudinary);
 
 //Rotas
 app.get("/", async (request, reply) => {
@@ -42,19 +40,19 @@ app.get("/", async (request, reply) => {
   });
 });
 
-await app.register(authRoutes, {
+app.register(authRoutes, {
   prefix: "/auth",
 });
 
-await app.register(projectRoutes, {
+app.register(projectRoutes, {
   prefix: "/projects",
 });
 
-await app.register(userRoutes, {
+app.register(userRoutes, {
   prefix: "/users",
 });
 
-await app.register(contactRoutes, {
+app.register(contactRoutes, {
   prefix: "/contact",
 });
 

@@ -5,7 +5,7 @@ import {
   resetPasswordSchema,
 } from "./auth.schema";
 import { authService } from "./auth.service";
-import { mailService } from "@/src/services/mail.service";
+import { mailService } from "../../services/mail.service";
 import { resetPasswordTemplate } from "./auth.email";
 
 export const authController = {

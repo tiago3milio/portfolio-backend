@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node --watch dist/server.js"
+    "build": "prisma generate && tsc",
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "Tiago Santos",

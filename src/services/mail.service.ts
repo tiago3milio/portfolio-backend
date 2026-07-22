@@ -1,4 +1,4 @@
-import { transporter } from "@/lib/mail";
+import { transporter } from "../../lib/mail";
 
 export const mailService = {
   async send(options: {

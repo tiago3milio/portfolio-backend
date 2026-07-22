@@ -1,4 +1,4 @@
-import { AppError } from "@/src/errors/app.error";
+import { AppError } from "../../errors/app.error";
 import { comparePassword, hashPassword } from "../../plugins/bcrypt";
 import { userRepository } from "../users/user.repository";
 import { ForgotPasswordDTO, loginSchemaDTO } from "./auth.schema";

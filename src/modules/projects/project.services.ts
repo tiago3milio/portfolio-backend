@@ -1,9 +1,8 @@
-import { AppError } from "@/src/errors/app.error";
+import { AppError } from "../../errors/app.error";
 import { projectRepository } from "./project.repository";
 import { CreateProjectDTO, UpdateProjectDTO } from "./project.schema";
 import { MultipartFile } from "@fastify/multipart";
 import { uploadService } from "../../services/upload.service";
-import { boolean, string } from "zod";
 
 export const projectService = {
   async createProject(data: CreateProjectDTO) {

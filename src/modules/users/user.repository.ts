@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "../../../lib/prisma";
 import { CreateUserDTO, UpdateUserDTO } from "./user.schema";
 
 export const userRepository = {

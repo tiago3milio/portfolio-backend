@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { createUserSchema, updateUserSchema } from "./user.schema";
 import { userService } from "./user.service";
-import { AppError } from "@/src/errors/app.error";
+import { AppError } from "../../errors/app.error";
 
 export const userController = {
   async create(request: FastifyRequest, reply: FastifyReply) {

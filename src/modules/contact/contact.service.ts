@@ -1,6 +1,5 @@
-import { transporter } from "@/lib/mail";
 import { ContactDTO } from "./contact.schema";
-import { mailService } from "@/src/services/mail.service";
+import { mailService } from "../../services/mail.service";
 
 export const contactService = {
   async send(data: ContactDTO) {

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { projectService } from "./project.services";
 import { createProjectSchema, updateProjectSchema } from "./project.schema";
-import { AppError } from "@/src/errors/app.error";
+import { AppError } from "../../errors/app.error";
 
 export const projectController = {
   async create(request: FastifyRequest, reply: FastifyReply) {

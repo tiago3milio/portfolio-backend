@@ -1,7 +1,7 @@
 import { userRepository } from "./user.repository";
 import { CreateUserDTO, UpdateUserDTO } from "./user.schema";
 import { hashPassword } from "../../plugins/bcrypt";
-import { AppError } from "@/src/errors/app.error";
+import { AppError } from "../../errors/app.error";
 import { uploadService } from "../../services/upload.service";
 import { MultipartFile } from "@fastify/multipart";
 
