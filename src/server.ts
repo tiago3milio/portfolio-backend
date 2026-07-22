@@ -58,10 +58,6 @@ app.register(contactRoutes, {
 
 const port = Number(process.env.PORT) || 3000;
 
-app.listen({ port: port }, (err, address) => {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at ${address}`);
+app.listen({ port: port }, () => {
+  console.log("🚀Servidor rodando...");
 });
