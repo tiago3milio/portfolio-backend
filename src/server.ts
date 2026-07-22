@@ -58,6 +58,6 @@ app.register(contactRoutes, {
 
 const port = Number(process.env.PORT) || 3000;
 
-app.listen({ port: port }, () => {
+app.listen({ port: port, host: "0.0.0.0" }, () => {
   console.log("🚀Servidor rodando...");
 });
